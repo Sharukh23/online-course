@@ -1,7 +1,8 @@
 package com.edstem.Course.service;
 
-import com.edstem.Course.contract.Course;
+import com.edstem.Course.contract.Courses;
 import com.edstem.Course.exception.CourseNotFoundException;
+import com.edstem.Course.model.Course;
 import com.edstem.Course.repository.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,13 @@ public class CourseService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Course> getAllCourses() {
-        List<com.edstem.Course.model.Course> courses = this.courseRepository.findAll();
+    public List<Courses> getAllCourses() {
+        List<Course> courses = this.courseRepository.findAll();
         return courses.stream()
-                .map(course -> modelMapper.map(course, Course.class))
+                .map(course -> modelMapper.map(course, Courses.class))
                 .collect(Collectors.toList());
     }
+
     public Course getCourseById(Long id) {
         com.edstem.Course.model.Course course = this.courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));

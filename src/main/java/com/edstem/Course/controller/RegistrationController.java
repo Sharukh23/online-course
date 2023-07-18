@@ -1,7 +1,8 @@
 package com.edstem.Course.controller;
 
+import com.edstem.Course.contract.Registrations;
+import com.edstem.Course.model.Registration;
 import com.edstem.Course.service.RegistrationService;
-import com.edstem.Course.contract.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Registration>> getAllRegistrations() {
-        List<Registration> registrations = registrationService.getAllRegistrations();
+    public ResponseEntity<List<Registrations>> getAllRegistrations() {
+        List<Registrations> registrations = registrationService.getAllRegistrations();
         if (registrations.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -29,20 +30,20 @@ public class RegistrationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Registration> getRegistrationById(@PathVariable Long id) {
-        Registration registration = registrationService.getRegistrationById(id);
+    public ResponseEntity<Registrations> getRegistrationById(@PathVariable Long id) {
+        Registrations registration = registrationService.getRegistrationById(id);
         return ResponseEntity.ok(registration);
     }
 
     @PostMapping
-    public ResponseEntity<Registration> addRegistration(@RequestBody com.edstem.Course.model.Registration registration) {
-        Registration addedRegistration = registrationService.addRegistration(registration);
+    public ResponseEntity<Registrations> addRegistration(@RequestBody Registration registration) {
+        Registrations addedRegistration = registrationService.addRegistration(registration);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRegistration);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Registration> updateRegistrationById(@PathVariable Long id, @RequestBody com.edstem.Course.model.Registration updatedRegistration) {
-        Registration updatedRegistrations = registrationService.updateRegistrationById(id, updatedRegistration);
+    public ResponseEntity<Registrations> updateRegistrationById(@PathVariable Long id, @RequestBody Registration updatedRegistration) {
+        Registrations updatedRegistrations = registrationService.updateRegistrationById(id, updatedRegistration);
         return ResponseEntity.ok(updatedRegistrations);
     }
 
