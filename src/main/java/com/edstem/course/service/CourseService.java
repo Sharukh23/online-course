@@ -67,7 +67,7 @@ public class CourseService {
             existingCourse.setName(updatedCourse.getName());
             existingCourse.setCapacity(updatedCourse.getCapacity());
             existingCourse.setCurrentEnrollment(updatedCourse.getCurrentEnrollment());
-            Course savedCourse = courseRepository.save(updatedCourse);
+            Course savedCourse = courseRepository.save(existingCourse);
             return modelMapper.map(savedCourse, Courses.class);
         } else {
             throw new CourseNotFoundException(id);
