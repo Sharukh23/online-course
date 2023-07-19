@@ -1,4 +1,4 @@
-package com.edstem.Course.model;
+package com.edstem.course.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

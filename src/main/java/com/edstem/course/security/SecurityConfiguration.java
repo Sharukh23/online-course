@@ -1,4 +1,4 @@
-package com.edstem.Course.security;
+package com.edstem.course.security;
 
 
 import org.springframework.context.annotation.Bean;

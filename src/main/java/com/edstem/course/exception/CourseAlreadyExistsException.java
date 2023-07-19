@@ -1,4 +1,4 @@
-package com.edstem.Course.exception;
+package com.edstem.course.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

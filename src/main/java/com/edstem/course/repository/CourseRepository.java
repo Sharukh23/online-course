@@ -1,6 +1,6 @@
-package com.edstem.Course.repository;
+package com.edstem.course.repository;
 
-import com.edstem.Course.model.Course;
+import com.edstem.course.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

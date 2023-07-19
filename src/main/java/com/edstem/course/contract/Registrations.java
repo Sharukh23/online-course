@@ -1,4 +1,4 @@
-package com.edstem.Course.contract;
+package com.edstem.course.contract;
 
 import lombok.*;
 

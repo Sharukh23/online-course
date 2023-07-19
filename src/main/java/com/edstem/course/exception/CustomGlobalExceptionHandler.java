@@ -1,4 +1,4 @@
-package com.edstem.Course.exception;
+package com.edstem.course.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

@@ -1,6 +1,6 @@
-package com.edstem.Course.repository;
+package com.edstem.course.repository;
 
-import com.edstem.Course.model.Registration;
+import com.edstem.course.model.Registration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

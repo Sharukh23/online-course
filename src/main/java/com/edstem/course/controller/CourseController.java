@@ -1,9 +1,9 @@
-package com.edstem.Course.controller;
+package com.edstem.course.controller;
 
-import com.edstem.Course.contract.Courses;
-import com.edstem.Course.model.Course;
-import com.edstem.Course.repository.CourseRepository;
-import com.edstem.Course.service.CourseService;
+import com.edstem.course.contract.Courses;
+import com.edstem.course.model.Course;
+import com.edstem.course.repository.CourseRepository;
+import com.edstem.course.service.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

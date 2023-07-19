@@ -1,13 +1,13 @@
-package com.edstem.Course.service;
+package com.edstem.course.service;
 
-import com.edstem.Course.contract.Registrations;
-import com.edstem.Course.exception.CourseNotFoundException;
-import com.edstem.Course.exception.RegistrationNotFoundException;
-import com.edstem.Course.exception.SameStudentIdException;
-import com.edstem.Course.model.Course;
-import com.edstem.Course.model.Registration;
-import com.edstem.Course.repository.CourseRepository;
-import com.edstem.Course.repository.RegistrationRepository;
+import com.edstem.course.contract.Registrations;
+import com.edstem.course.exception.CourseNotFoundException;
+import com.edstem.course.exception.RegistrationNotFoundException;
+import com.edstem.course.exception.SameStudentIdException;
+import com.edstem.course.model.Course;
+import com.edstem.course.model.Registration;
+import com.edstem.course.repository.CourseRepository;
+import com.edstem.course.repository.RegistrationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

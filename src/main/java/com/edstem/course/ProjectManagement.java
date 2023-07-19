@@ -1,4 +1,4 @@
-package com.edstem.Course;
+package com.edstem.course;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

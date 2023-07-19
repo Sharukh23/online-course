@@ -1,8 +1,8 @@
-package com.edstem.Course.controller;
+package com.edstem.course.controller;
 
-import com.edstem.Course.contract.Registrations;
-import com.edstem.Course.model.Registration;
-import com.edstem.Course.service.RegistrationService;
+import com.edstem.course.contract.Registrations;
+import com.edstem.course.model.Registration;
+import com.edstem.course.service.RegistrationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

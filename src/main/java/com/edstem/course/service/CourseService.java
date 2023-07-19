@@ -1,11 +1,11 @@
-package com.edstem.Course.service;
+package com.edstem.course.service;
 
-import com.edstem.Course.contract.Courses;
-import com.edstem.Course.exception.CourseAlreadyExistsException;
-import com.edstem.Course.exception.CourseNotFoundException;
-import com.edstem.Course.exception.EnrollmentCapacityException;
-import com.edstem.Course.model.Course;
-import com.edstem.Course.repository.CourseRepository;
+import com.edstem.course.contract.Courses;
+import com.edstem.course.exception.CourseAlreadyExistsException;
+import com.edstem.course.exception.CourseNotFoundException;
+import com.edstem.course.exception.EnrollmentCapacityException;
+import com.edstem.course.model.Course;
+import com.edstem.course.repository.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class CourseService {
         return courseResponse;
     }
 
-    
+
     public Courses updateCourseById(Long id, Course updatedCourse) {
         Optional<Course> oldCourseData = courseRepository.findById(id);
         if (updatedCourse.getCurrentEnrollment() > updatedCourse.getCapacity()) {
