@@ -31,7 +31,7 @@ public class CourseController {
         if (courses.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
