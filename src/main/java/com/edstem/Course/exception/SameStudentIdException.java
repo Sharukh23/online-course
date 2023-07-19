@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class SameStudentIdException extends RuntimeException {
     public SameStudentIdException(Long id) {
-        super("Student id " +id+" is already exists");
+        super("Student id " + id + " is already exists");
     }
 }

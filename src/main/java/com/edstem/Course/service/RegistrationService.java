@@ -53,19 +53,16 @@ public class RegistrationService {
         if (isStudentRegistered) {
             throw new SameStudentIdException(studentId);
         }
-        com.edstem.Course.model.Registration addedRegistration = registrationRepository.save(registration);
+        Registration addedRegistration = registrationRepository.save(registration);
         return convertToRegistrationResponse(addedRegistration);
     }
 
     public Registrations updateRegistrationById(Long id, Registration updatedRegistration) {
         Registration registration = registrationRepository.findById(id)
                 .orElseThrow(() -> new RegistrationNotFoundException(id));
-
         registration.setStudentId(updatedRegistration.getStudentId());
         registration.setCourseId(updatedRegistration.getCourseId());
-
         Registration updatedRegistrationEntity = registrationRepository.save(registration);
-
         return convertToRegistrationResponse(updatedRegistrationEntity);
     }
 
@@ -78,7 +75,6 @@ public class RegistrationService {
                 .orElseThrow(() -> new RegistrationNotFoundException(registration.getCourseId()));
         Registrations registrationResponse = modelMapper.map(registration, Registrations.class);
         registrationResponse.setCourseId(course.getId());
-
         return registrationResponse;
     }
 }

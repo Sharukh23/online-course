@@ -3,6 +3,7 @@ package com.edstem.Course.controller;
 import com.edstem.Course.contract.Registrations;
 import com.edstem.Course.model.Registration;
 import com.edstem.Course.service.RegistrationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +37,13 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<Registrations> addRegistration(@RequestBody Registration registration) {
+    public ResponseEntity<Registrations> addRegistration(@Valid @RequestBody Registration registration) {
         Registrations addedRegistration = registrationService.addRegistration(registration);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRegistration);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Registrations> updateRegistrationById(@PathVariable Long id, @RequestBody Registration updatedRegistration) {
+    public ResponseEntity<Registrations> updateRegistrationById(@PathVariable Long id, @Valid @RequestBody Registration updatedRegistration) {
         Registrations updatedRegistrations = registrationService.updateRegistrationById(id, updatedRegistration);
         return ResponseEntity.ok(updatedRegistrations);
     }

@@ -1,6 +1,7 @@
 package com.edstem.Course.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Entity
@@ -15,6 +16,8 @@ public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Min(value = 0, message = "Course Id should be a positive number")
     private Long courseId;
+    @Min(value = 0, message = "Student Id should be a positive number")
     private Long studentId;
 }

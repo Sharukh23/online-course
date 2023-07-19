@@ -1,17 +1,18 @@
 package com.edstem.Course.service;
 
 import com.edstem.Course.contract.Courses;
+import com.edstem.Course.exception.CourseAlreadyExistsException;
 import com.edstem.Course.exception.CourseNotFoundException;
+import com.edstem.Course.exception.EnrollmentCapacityException;
 import com.edstem.Course.model.Course;
 import com.edstem.Course.repository.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import org.modelmapper.ModelMapper;
-
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,9 +34,50 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
-    public Course getCourseById(Long id) {
-        com.edstem.Course.model.Course course = this.courseRepository.findById(id)
+    public Courses addCourses(Course course) {
+        Long courseId = course.getId();
+//        if (course.getName().isEmpty()) {
+//            throw new CourseNameNullException();
+//        }
+        if (course.getCurrentEnrollment() > course.getCapacity()) {
+            throw new EnrollmentCapacityException(course.getCurrentEnrollment(), course.getCapacity());
+        }
+        boolean courseExists = courseRepository.existsCourseByName(course.getName());
+        if (courseExists) {
+            throw new CourseAlreadyExistsException(course.getName());
+        }
+        Course addedCourse = courseRepository.save(course);
+        Courses courseResponse = modelMapper.map(course, Courses.class);
+        courseResponse.setId(course.getId());
+        return courseResponse;
+    }
+
+    
+    public Courses updateCourseById(Long id, Course updatedCourse) {
+        Optional<Course> oldCourseData = courseRepository.findById(id);
+        if (updatedCourse.getCurrentEnrollment() > updatedCourse.getCapacity()) {
+            throw new EnrollmentCapacityException(updatedCourse.getCurrentEnrollment(), updatedCourse.getCapacity());
+        }
+        boolean courseExists = courseRepository.existsCourseByName(updatedCourse.getName());
+        if (courseExists) {
+            throw new CourseAlreadyExistsException(updatedCourse.getName());
+        }
+        if (oldCourseData.isPresent()) {
+            Course existingCourse = oldCourseData.get();
+            existingCourse.setName(updatedCourse.getName());
+            existingCourse.setCapacity(updatedCourse.getCapacity());
+            existingCourse.setCurrentEnrollment(updatedCourse.getCurrentEnrollment());
+            Course savedCourse = courseRepository.save(updatedCourse);
+            return modelMapper.map(savedCourse, Courses.class);
+        } else {
+            throw new CourseNotFoundException(id);
+        }
+    }
+
+
+    public Courses getCourseById(Long id) {
+        Course course = this.courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
-        return modelMapper.map(course, Course.class);
+        return modelMapper.map(course, Courses.class);
     }
 }
