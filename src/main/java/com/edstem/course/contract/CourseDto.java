@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Courses {
+public class CourseDto {
     private Long id;
     @NotBlank(message = "Name is required")
     private String name;

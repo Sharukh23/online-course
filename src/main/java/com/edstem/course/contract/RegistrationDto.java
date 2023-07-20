@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Registrations {
+public class RegistrationDto {
         private Long id;
         @Min(value = 0, message = "Course Id should be a positive number")
         private Long courseId;

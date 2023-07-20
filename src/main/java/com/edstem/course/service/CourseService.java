@@ -1,6 +1,6 @@
 package com.edstem.course.service;
 
-import com.edstem.course.contract.Courses;
+import com.edstem.course.contract.CourseDto;
 import com.edstem.course.exception.CourseAlreadyExistsException;
 import com.edstem.course.exception.CourseNotFoundException;
 import com.edstem.course.exception.EnrollmentCapacityException;
@@ -27,18 +27,15 @@ public class CourseService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Courses> getAllCourses() {
+    public List<CourseDto> getAllCourses() {
         List<Course> courses = this.courseRepository.findAll();
         return courses.stream()
-                .map(course -> modelMapper.map(course, Courses.class))
+                .map(course -> modelMapper.map(course, CourseDto.class))
                 .collect(Collectors.toList());
     }
 
-    public Courses addCourses(Course course) {
+    public CourseDto addCourses(Course course) {
         Long courseId = course.getId();
-//        if (course.getName().isEmpty()) {
-//            throw new CourseNameNullException();
-//        }
         if (course.getCurrentEnrollment() > course.getCapacity()) {
             throw new EnrollmentCapacityException(course.getCurrentEnrollment(), course.getCapacity());
         }
@@ -47,13 +44,13 @@ public class CourseService {
             throw new CourseAlreadyExistsException(course.getName());
         }
         Course addedCourse = courseRepository.save(course);
-        Courses courseResponse = modelMapper.map(course, Courses.class);
+        CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
         courseResponse.setId(course.getId());
         return courseResponse;
     }
 
 
-    public Courses updateCourseById(Long id, Course updatedCourse) {
+    public CourseDto updateCourseById(Long id, Course updatedCourse) {
         Optional<Course> oldCourseData = courseRepository.findById(id);
         if (updatedCourse.getCurrentEnrollment() > updatedCourse.getCapacity()) {
             throw new EnrollmentCapacityException(updatedCourse.getCurrentEnrollment(), updatedCourse.getCapacity());
@@ -68,16 +65,24 @@ public class CourseService {
             existingCourse.setCapacity(updatedCourse.getCapacity());
             existingCourse.setCurrentEnrollment(updatedCourse.getCurrentEnrollment());
             Course savedCourse = courseRepository.save(existingCourse);
-            return modelMapper.map(savedCourse, Courses.class);
+            return modelMapper.map(savedCourse, CourseDto.class);
         } else {
             throw new CourseNotFoundException(id);
         }
     }
 
 
-    public Courses getCourseById(Long id) {
+    public CourseDto getCourseById(Long id) {
         Course course = this.courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
-        return modelMapper.map(course, Courses.class);
+        return modelMapper.map(course, CourseDto.class);
+    }
+
+
+    public void deleteCourseById(Long id) {
+        if (!courseRepository.existsById(id)) {
+            throw new CourseNotFoundException(id);
+        }
+        courseRepository.deleteById(id);
     }
 }

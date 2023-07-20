@@ -1,6 +1,6 @@
 package com.edstem.course.controller;
 
-import com.edstem.course.contract.Registrations;
+import com.edstem.course.contract.RegistrationDto;
 import com.edstem.course.model.Registration;
 import com.edstem.course.service.RegistrationService;
 import jakarta.validation.Valid;
@@ -22,8 +22,8 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Registrations>> getAllRegistrations() {
-        List<Registrations> registrations = registrationService.getAllRegistrations();
+    public ResponseEntity<List<RegistrationDto>> getAllRegistrations() {
+        List<RegistrationDto> registrations = registrationService.getAllRegistrations();
         if (registrations.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -31,26 +31,27 @@ public class RegistrationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Registrations> getRegistrationById(@PathVariable Long id) {
-        Registrations registration = registrationService.getRegistrationById(id);
+    public ResponseEntity<RegistrationDto> getRegistrationById(@PathVariable Long id) {
+        RegistrationDto registration = registrationService.getRegistrationById(id);
         return ResponseEntity.ok(registration);
     }
 
     @PostMapping
-    public ResponseEntity<Registrations> addRegistration(@Valid @RequestBody Registration registration) {
-        Registrations addedRegistration = registrationService.addRegistration(registration);
+    public ResponseEntity<RegistrationDto> addRegistration(@Valid @RequestBody Registration registration) {
+        RegistrationDto addedRegistration = registrationService.addRegistration(registration);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRegistration);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Registrations> updateRegistrationById(@PathVariable Long id, @Valid @RequestBody Registration updatedRegistration) {
-        Registrations updatedRegistrations = registrationService.updateRegistrationById(id, updatedRegistration);
+    public ResponseEntity<RegistrationDto> updateRegistrationById(@PathVariable Long id, @Valid @RequestBody Registration updatedRegistration) {
+        RegistrationDto updatedRegistrations = registrationService.updateRegistrationById(id, updatedRegistration);
         return ResponseEntity.ok(updatedRegistrations);
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRegistrationById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteRegistrationById(@PathVariable Long id) {
         registrationService.deleteRegistrationById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Registration with Id " + id + " has been deleted");
     }
 }

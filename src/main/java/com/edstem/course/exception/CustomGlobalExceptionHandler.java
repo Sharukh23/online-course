@@ -37,12 +37,6 @@ public class CustomGlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(CourseNameNullException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public ResponseEntity<Object> courseNameNull(CourseNameNullException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
 
     @ExceptionHandler(CourseAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

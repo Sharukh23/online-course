@@ -1,6 +1,6 @@
 package com.edstem.course.service;
 
-import com.edstem.course.contract.Registrations;
+import com.edstem.course.contract.RegistrationDto;
 import com.edstem.course.exception.CourseNotFoundException;
 import com.edstem.course.exception.RegistrationNotFoundException;
 import com.edstem.course.exception.SameStudentIdException;
@@ -30,20 +30,19 @@ public class RegistrationService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Registrations> getAllRegistrations() {
+    public List<RegistrationDto> getAllRegistrations() {
         List<Registration> registrations = registrationRepository.findAll();
         return registrations.stream()
-                .map(this::convertToRegistrationResponse)
-                .collect(Collectors.toList());
+                .map(registration -> modelMapper.map(registration,RegistrationDto.class)).collect(Collectors.toList());
     }
 
-    public Registrations getRegistrationById(Long id) {
+    public RegistrationDto getRegistrationById(Long id) {
         Registration registration = registrationRepository.findById(id)
                 .orElseThrow(() -> new RegistrationNotFoundException(id));
-        return convertToRegistrationResponse(registration);
+        return modelMapper.map(registration, RegistrationDto.class);
     }
 
-    public Registrations addRegistration(Registration registration) {
+    public RegistrationDto addRegistration(Registration registration) {
         Long courseId = registration.getCourseId();
         if (!courseRepository.existsById(courseId)) {
             throw new CourseNotFoundException(courseId);
@@ -54,27 +53,23 @@ public class RegistrationService {
             throw new SameStudentIdException(studentId);
         }
         Registration addedRegistration = registrationRepository.save(registration);
-        return convertToRegistrationResponse(addedRegistration);
+        return modelMapper.map(addedRegistration, RegistrationDto.class);
     }
 
-    public Registrations updateRegistrationById(Long id, Registration updatedRegistration) {
+    public RegistrationDto updateRegistrationById(Long id, Registration updatedRegistration) {
         Registration registration = registrationRepository.findById(id)
                 .orElseThrow(() -> new RegistrationNotFoundException(id));
         registration.setStudentId(updatedRegistration.getStudentId());
         registration.setCourseId(updatedRegistration.getCourseId());
         Registration updatedRegistrationEntity = registrationRepository.save(registration);
-        return convertToRegistrationResponse(updatedRegistrationEntity);
+        return modelMapper.map(updatedRegistrationEntity,RegistrationDto.class);
     }
+
 
     public void deleteRegistrationById(Long id) {
+        if (!registrationRepository.existsById(id)) {
+            throw new RegistrationNotFoundException(id);
+        }
         registrationRepository.deleteById(id);
-    }
-
-    private Registrations convertToRegistrationResponse(Registration registration) {
-        Course course = courseRepository.findById(registration.getCourseId())
-                .orElseThrow(() -> new RegistrationNotFoundException(registration.getCourseId()));
-        Registrations registrationResponse = modelMapper.map(registration, Registrations.class);
-        registrationResponse.setCourseId(course.getId());
-        return registrationResponse;
     }
 }
