@@ -9,7 +9,6 @@ import lombok.*;
 @Table(name = "courses")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
 @ToString
 public class Course {

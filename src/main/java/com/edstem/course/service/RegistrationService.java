@@ -57,12 +57,18 @@ public class RegistrationService {
     }
 
     public RegistrationDto updateRegistrationById(Long id, Registration updatedRegistration) {
+        if (!courseRepository.existsById(updatedRegistration.getCourseId())) {
+            throw new CourseNotFoundException(updatedRegistration.getCourseId());
+        }
         Registration registration = registrationRepository.findById(id)
                 .orElseThrow(() -> new RegistrationNotFoundException(id));
-        registration.setStudentId(updatedRegistration.getStudentId());
-        registration.setCourseId(updatedRegistration.getCourseId());
-        Registration updatedRegistrationEntity = registrationRepository.save(registration);
-        return modelMapper.map(updatedRegistrationEntity,RegistrationDto.class);
+        Registration updatedRegistrationEntity = new Registration(
+                id,
+                updatedRegistration.getCourseId(),
+                updatedRegistration.getStudentId()
+        );
+        Registration savedRegistrationEntity = registrationRepository.save(updatedRegistrationEntity);
+        return modelMapper.map(savedRegistrationEntity,RegistrationDto.class);
     }
 
 

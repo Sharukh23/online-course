@@ -49,8 +49,7 @@ public class CourseService {
         return courseResponse;
     }
 
-
-    public CourseDto updateCourseById(Long id, Course updatedCourse) {
+        public CourseDto updateCourseById(Long id, CourseDto updatedCourse) {
         Optional<Course> oldCourseData = courseRepository.findById(id);
         if (updatedCourse.getCurrentEnrollment() > updatedCourse.getCapacity()) {
             throw new EnrollmentCapacityException(updatedCourse.getCurrentEnrollment(), updatedCourse.getCapacity());
@@ -59,17 +58,21 @@ public class CourseService {
         if (courseExists) {
             throw new CourseAlreadyExistsException(updatedCourse.getName());
         }
-        if (oldCourseData.isPresent()) {
-            Course existingCourse = oldCourseData.get();
-            existingCourse.setName(updatedCourse.getName());
-            existingCourse.setCapacity(updatedCourse.getCapacity());
-            existingCourse.setCurrentEnrollment(updatedCourse.getCurrentEnrollment());
-            Course savedCourse = courseRepository.save(existingCourse);
-            return modelMapper.map(savedCourse, CourseDto.class);
+            if (oldCourseData.isPresent()) {
+                Course existingCourse = oldCourseData.get();
+                Course updatedExistingCourse = new Course(
+                        existingCourse.getId(),
+                        updatedCourse.getName(),
+                        updatedCourse.getCapacity(),
+                        updatedCourse.getCurrentEnrollment()
+                );
+                Course savedCourse = courseRepository.save(updatedExistingCourse);
+                return modelMapper.map(savedCourse, CourseDto.class);
         } else {
             throw new CourseNotFoundException(id);
         }
     }
+
 
 
     public CourseDto getCourseById(Long id) {

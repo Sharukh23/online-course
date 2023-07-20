@@ -8,7 +8,6 @@ import lombok.*;
 @Table(name = "Registrations")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
 @ToString
 public class Registration {
