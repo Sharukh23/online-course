@@ -1,21 +1,23 @@
 package com.edstem.course.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
 @Table(name = "courses")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@ToString
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private int capacity;
     private int currentEnrollment;

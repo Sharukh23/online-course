@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course,Long> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
     boolean existsCourseByName(@Param("name") String name);
 }
