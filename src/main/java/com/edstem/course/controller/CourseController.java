@@ -1,6 +1,6 @@
 package com.edstem.course.controller;
 
-import com.edstem.course.contract.Course;
+import com.edstem.course.contract.Courses;
 import com.edstem.course.service.CourseService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -20,8 +20,8 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Course>> getAllCourses() {
-        List<Course> courses = courseService.getAllCourses();
+    public ResponseEntity<List<Courses>> getAllCourses() {
+        List<Courses> courses = courseService.getAllCourses();
         if (courses.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -29,21 +29,21 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> addCourse(@Valid @RequestBody Course course) {
-        Course courseDto = courseService.addCourse(course);
+    public ResponseEntity<Courses> addCourse(@Valid @RequestBody Courses course) {
+        Courses courseDto = courseService.addCourse(course);
         return new ResponseEntity<>(courseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
-        Course course = courseService.getCourseById(id);
+    public ResponseEntity<Courses> getCourseById(@PathVariable Long id) {
+        Courses course = courseService.getCourseById(id);
         return ResponseEntity.ok(course);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> updateCourseById(
-            @PathVariable Long id, @Valid @RequestBody Course updatedCourse) {
-        Course updatedCourses = courseService.updateCourseById(id, updatedCourse);
+    public ResponseEntity<Courses> updateCourseById(
+            @PathVariable Long id, @Valid @RequestBody Courses updatedCourse) {
+        Courses updatedCourses = courseService.updateCourseById(id, updatedCourse);
         return ResponseEntity.ok(updatedCourses);
     }
 

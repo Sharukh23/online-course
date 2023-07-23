@@ -1,10 +1,11 @@
 package com.edstem.course.service;
 
-import com.edstem.course.contract.Registration;
+import com.edstem.course.contract.Registrations;
 import com.edstem.course.exception.CourseNotFoundException;
 import com.edstem.course.exception.RegistrationNotFoundException;
 import com.edstem.course.exception.SameStudentIdException;
 import com.edstem.course.model.Course;
+import com.edstem.course.model.Registration;
 import com.edstem.course.repository.CourseRepository;
 import com.edstem.course.repository.RegistrationRepository;
 import java.util.List;
@@ -32,22 +33,22 @@ public class RegistrationService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Registration> getAllRegistrations() {
-        List<com.edstem.course.model.Registration> registrations = registrationRepository.findAll();
+    public List<Registrations> getAllRegistrations() {
+        List<Registration> registrations = registrationRepository.findAll();
         return registrations.stream()
-                .map(registration -> modelMapper.map(registration, Registration.class))
+                .map(registration -> modelMapper.map(registration, Registrations.class))
                 .collect(Collectors.toList());
     }
 
-    public Registration getRegistrationById(Long id) {
-        com.edstem.course.model.Registration registration =
+    public Registrations getRegistrationById(Long id) {
+        Registration registration =
                 registrationRepository
                         .findById(id)
                         .orElseThrow(() -> new RegistrationNotFoundException(id));
-        return modelMapper.map(registration, Registration.class);
+        return modelMapper.map(registration, Registrations.class);
     }
 
-    public Registration addRegistration(Registration registration) {
+    public Registrations addRegistration(Registrations registration) {
         Long courseId = registration.getCourseId();
         Long studentId = registration.getStudentId();
         if (!courseRepository.existsById(courseId)) {
@@ -60,13 +61,12 @@ public class RegistrationService {
             String courseName = course.get().getName();
             throw new SameStudentIdException(studentId, courseName);
         }
-        com.edstem.course.model.Registration registrationEntity =
-                registrationRepository.save(
-                        modelMapper.map(registration, com.edstem.course.model.Registration.class));
-        return modelMapper.map(registrationEntity, Registration.class);
+        Registration registrationEntity =
+                registrationRepository.save(modelMapper.map(registration, Registration.class));
+        return modelMapper.map(registrationEntity, Registrations.class);
     }
 
-    public Registration updateRegistrationById(Long id, Registration updatedRegistration) {
+    public Registrations updateRegistrationById(Long id, Registrations updatedRegistration) {
         Long courseId = updatedRegistration.getCourseId();
         Long studentId = updatedRegistration.getStudentId();
         if (!courseRepository.existsById(courseId)) {
@@ -79,24 +79,23 @@ public class RegistrationService {
             String courseName = course.get().getName();
             throw new SameStudentIdException(studentId, courseName);
         }
-        com.edstem.course.model.Registration registration =
+        Registration registration =
                 registrationRepository
                         .findById(id)
                         .orElseThrow(() -> new RegistrationNotFoundException(id));
-        com.edstem.course.model.Registration updatedRegistrationEntity =
-                new com.edstem.course.model.Registration(
+        Registration updatedRegistrationEntity =
+                new Registration(
                         id, updatedRegistration.getCourseId(), updatedRegistration.getStudentId());
-        com.edstem.course.model.Registration savedRegistrationEntity =
+        Registration savedRegistrationEntity =
                 registrationRepository.save(updatedRegistrationEntity);
-        return modelMapper.map(savedRegistrationEntity, Registration.class);
+        return modelMapper.map(savedRegistrationEntity, Registrations.class);
     }
 
     public Long deleteRegistrationById(Long id) {
         if (!registrationRepository.existsById(id)) {
             throw new RegistrationNotFoundException(id);
         }
-        Optional<com.edstem.course.model.Registration> registration =
-                registrationRepository.findById(id);
+        Optional<Registration> registration = registrationRepository.findById(id);
         registrationRepository.deleteById(id);
         return registration.get().getStudentId();
     }

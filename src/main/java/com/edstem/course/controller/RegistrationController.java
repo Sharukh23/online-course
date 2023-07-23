@@ -1,6 +1,6 @@
 package com.edstem.course.controller;
 
-import com.edstem.course.contract.Registration;
+import com.edstem.course.contract.Registrations;
 import com.edstem.course.service.RegistrationService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -20,8 +20,8 @@ public class RegistrationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Registration>> getAllRegistrations() {
-        List<Registration> registrations = registrationService.getAllRegistrations();
+    public ResponseEntity<List<Registrations>> getAllRegistrations() {
+        List<Registrations> registrations = registrationService.getAllRegistrations();
         if (registrations.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -29,22 +29,22 @@ public class RegistrationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Registration> getRegistrationById(@PathVariable Long id) {
-        Registration registration = registrationService.getRegistrationById(id);
+    public ResponseEntity<Registrations> getRegistrationById(@PathVariable Long id) {
+        Registrations registration = registrationService.getRegistrationById(id);
         return ResponseEntity.ok(registration);
     }
 
     @PostMapping
-    public ResponseEntity<Registration> addRegistration(
-            @Valid @RequestBody Registration registration) {
-        Registration registrationDto = registrationService.addRegistration(registration);
+    public ResponseEntity<Registrations> addRegistration(
+            @Valid @RequestBody Registrations registration) {
+        Registrations registrationDto = registrationService.addRegistration(registration);
         return ResponseEntity.status(HttpStatus.CREATED).body(registrationDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Registration> updateRegistrationById(
-            @PathVariable Long id, @Valid @RequestBody Registration updatedRegistration) {
-        Registration updatedRegistrations =
+    public ResponseEntity<Registrations> updateRegistrationById(
+            @PathVariable Long id, @Valid @RequestBody Registrations updatedRegistration) {
+        Registrations updatedRegistrations =
                 registrationService.updateRegistrationById(id, updatedRegistration);
         return ResponseEntity.ok(updatedRegistrations);
     }

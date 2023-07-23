@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Registration {
+public class Registrations {
     private Long id;
     @ValidCourseId private Long courseId;
     @ValidStudentId private Long studentId;

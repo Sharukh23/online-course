@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Course {
+public class Courses {
     private Long id;
     @ValidName private String name;
     @ValidCapacity private int capacity;
