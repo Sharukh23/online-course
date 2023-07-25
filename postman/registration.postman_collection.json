@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "0b21efa2-aeb7-4aaf-bff8-c89a6f80405c",
+		"name": "registration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28741936"
+	},
+	"item": [
+		{
+			"name": "getAllRegistrations",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "edstem@23",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sharokn",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/registrations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registrations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRegistrationById",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "edstem@23",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sharokn",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/registrations/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registrations",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRegistrationById",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "edstem@23",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sharokn",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"courseId\": \"\",\r\n        \"studentId\": 222\r\n    },",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registrations/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registrations",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRegistration",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "edstem@23",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sharokn",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"courseId\": 6,\r\n  \"studentId\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registrations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registrations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRegistrationById",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "edstem@23",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sharokn",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/registrations/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registrations",
+						"18"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
